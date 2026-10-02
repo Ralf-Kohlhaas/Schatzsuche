@@ -1,12 +1,157 @@
+```html
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schatzsuche</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>GPS-Test</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 12px 20px;
+            margin: 10px 0;
+        }
+
+        #status {
+            margin-top: 20px;
+            padding: 12px;
+            background: #eee;
+        }
+
+        #result {
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Schatzsuche</h1>
-    <p>Die Schatzsuche funktioniert! 🎉</p>
+
+    <h1>📍 GPS-Test</h1>
+
+    <p>
+        Mit diesem Test prüfen wir, ob das Smartphone
+        seinen Standort an die Webseite übermitteln kann.
+    </p>
+
+    <button id="locationButton">
+        Standort ermitteln
+    </button>
+
+    <div id="status">
+        Noch kein Standort abgefragt.
+    </div>
+
+    <div id="result" hidden>
+        <strong>Standort:</strong><br>
+
+        Breitengrad:
+        <span id="latitude"></span>°<br>
+
+        Längengrad:
+        <span id="longitude"></span>°<br>
+
+        Genauigkeit:
+        <span id="accuracy"></span> m
+    </div>
+
+    <script>
+        const button = document.getElementById("locationButton");
+        const status = document.getElementById("status");
+        const result = document.getElementById("result");
+
+        const latitude = document.getElementById("latitude");
+        const longitude = document.getElementById("longitude");
+        const accuracy = document.getElementById("accuracy");
+
+        button.addEventListener("click", () => {
+
+            // Prüfen, ob der Browser Geolocation unterstützt
+            if (!navigator.geolocation) {
+                status.textContent =
+                    "❌ Dieser Browser unterstützt keine Standortabfrage.";
+                return;
+            }
+
+            status.textContent =
+                "📍 Standort wird ermittelt ...";
+
+            navigator.geolocation.getCurrentPosition(
+
+                // Erfolgreich
+                (position) => {
+
+                    const coords = position.coords;
+
+                    latitude.textContent =
+                        coords.latitude.toFixed(6);
+
+                    longitude.textContent =
+                        coords.longitude.toFixed(6);
+
+                    accuracy.textContent =
+                        Math.round(coords.accuracy);
+
+                    result.hidden = false;
+
+                    status.textContent =
+                        "✅ Standort erfolgreich ermittelt.";
+                },
+
+                // Fehler
+                (error) => {
+
+                    result.hidden = true;
+
+                    switch (error.code) {
+
+                        case error.PERMISSION_DENIED:
+                            status.textContent =
+                                "❌ Standortzugriff wurde verweigert.";
+                            break;
+
+                        case error.POSITION_UNAVAILABLE:
+                            status.textContent =
+                                "❌ Standort momentan nicht verfügbar.";
+                            break;
+
+                        case error.TIMEOUT:
+                            status.textContent =
+                                "❌ Zeitüberschreitung bei der Standortabfrage.";
+                            break;
+
+                        default:
+                            status.textContent =
+                                "❌ Unbekannter Fehler bei der Standortabfrage.";
+                    }
+                },
+
+                // Optionen
+                {
+                    enableHighAccuracy: true,
+                    timeout: 15000,
+                    maximumAge: 0
+                }
+            );
+        });
+    </script>
+
 </body>
 </html>
+```
