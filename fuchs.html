@@ -1,0 +1,136 @@
+```html
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Station 1</title>
+
+    <style>
+
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        #riddle {
+            margin: 30px 0;
+            line-height: 1.6;
+        }
+
+        #distance {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        #status {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .navigation a {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <h1>Station 1</h1>
+
+
+    <div id="riddle">
+
+        <p>
+            Ich bin das erste Rätsel der Schatzsuche.
+        </p>
+
+        <p>
+            Hier kommt später dein richtiges Rätsel hinein.
+        </p>
+
+    </div>
+
+
+    <div id="status">
+        📍 Standort wird ermittelt ...
+    </div>
+
+
+    <div id="distance">
+        -- m
+    </div>
+
+
+    <div class="navigation">
+
+        <!-- Auf der ersten Seite absichtlich unsichtbar -->
+        <a id="backButton"
+           href="#"
+           style="visibility: hidden;">
+            Zurück
+        </a>
+
+
+        <!-- Zunächst unsichtbar -->
+        <a id="nextButton"
+           href="loewe.html"
+           style="visibility: hidden;">
+            Weiter
+        </a>
+
+    </div>
+
+
+    <script>
+
+        // ========================================
+        // Einstellungen für diese Station
+        // ========================================
+
+        const PAGE_ID = "fuchs";
+
+
+        // Zielkoordinaten
+        // HIER später die Koordinaten des Ziels eintragen
+
+        const TARGET_LAT = 48.000000;
+        const TARGET_LON = 8.000000;
+
+    </script>
+
+
+    <!-- Gemeinsame Schatzsuche-Logik -->
+    <script src="game.js"></script>
+
+</body>
+
+</html>
